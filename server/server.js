@@ -32,9 +32,16 @@ const app = express();
 /**
  * Connect to MongoDB.
  */
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI, function(err, res){
+  if(err){
+    console.log('Error connection to: ' + err);
+
+  } else{
+    console.log('Success');
+  }
+});
 mongoose.connection.on('error', () => {
-    console.error('MongoDB Connection Error.');
+    console.error('MongoDB Connection Error.'+process.env.MONGODB_URI);
     process.exit(1);
 });
 
@@ -63,7 +70,7 @@ app.use(bodyParser.urlencoded({extended: true}));
  */
 app.use((req, res, next) => {
     const token = new TokenService(req.headers);
-    
+
     req.isAuthenticated = token.isAuthenticated;
     req.tokenPayload    = token.getPayload();
     req.user            = {

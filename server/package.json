@@ -1,6 +1,6 @@
 {
   "name": "node-ionic-jwt-auth",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/scopsy/node-ionic-jwt-auth.git"
